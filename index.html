@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foodie’s Paradise - Fine Dining Restaurant</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        scroll-behavior: smooth;
+        background: #f4f4f4;
+        color: #333;
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 50px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 100;
+      }
+      nav .logo {
+        font-size: 28px;
+        color: #ff5722;
+        font-weight: bold;
+      }
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+      nav ul li {
+        margin-left: 25px;
+      }
+      nav ul li a {
+        color: white;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+      nav ul li a:hover {
+        color: #ffb74d;
+      }
+      .burger {
+        display: none;
+        cursor: pointer;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .burger div {
+        width: 25px;
+        height: 3px;
+        background: white;
+      }
+      header {
+        height: 100vh;
+        background: url("https://plus.unsplash.com/premium_photo-1668095398271-20f829d034bc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTI1fHxmb29kfGVufDB8fDB8fHww")
+          center/cover no-repeat;
+        position: relative;
+        color: white;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      .hero-content {
+        position: relative;
+        max-width: 800px;
+      }
+      .hero-content h1 {
+        font-size: 60px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+      }
+      .hero-content p {
+        font-size: 22px;
+        margin-bottom: 30px;
+      }
+      .hero-content .btn {
+        padding: 15px 30px;
+        background: #ff5722;
+        color: white;
+        border-radius: 50px;
+        font-size: 18px;
+        transition: 0.3s;
+      }
+      .hero-content .btn:hover {
+        background: #ff784e;
+      }
+      section {
+        padding: 100px 50px;
+        text-align: center;
+      }
+      section h2 {
+        font-size: 42px;
+        margin-bottom: 40px;
+        color: #ff5722;
+        position: relative;
+      }
+      section h2::after {
+        content: "";
+        width: 60px;
+        height: 4px;
+        background: #ff5722;
+        display: block;
+        margin: 10px auto 0;
+        border-radius: 2px;
+      }
+      .specials {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+      .special {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        width: 280px;
+        transition: transform 0.3s;
+      }
+      .special:hover {
+        transform: translateY(-10px);
+      }
+      .special img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      .special h3 {
+        margin: 15px 0;
+        color: #ff5722;
+      }
+      .special p {
+        padding: 0 15px 15px;
+        font-size: 16px;
+        color: #555;
+      }
+      .menu-items {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+      .menu-item {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        width: 250px;
+        transition: transform 0.3s;
+      }
+      .menu-item:hover {
+        transform: translateY(-10px);
+      }
+      .menu-item img {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .menu-item h3 {
+        margin: 15px 0;
+        color: #ff5722;
+      }
+      .menu-item span {
+        font-weight: bold;
+        color: #333;
+      }
+      #about p {
+        max-width: 800px;
+        margin: 0 auto;
+        font-size: 18px;
+        color: #555;
+        line-height: 1.6;
+      }
+      .chefs {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 50px;
+      }
+      .chef {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        width: 250px;
+        transition: transform 0.3s;
+      }
+      .chef:hover {
+        transform: translateY(-10px);
+      }
+      .chef img {
+        width: 100%;
+        border-radius: 50%;
+      }
+      .chef h3 {
+        margin: 15px 0;
+        color: #ff5722;
+      }
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+      .gallery img {
+        width: 300px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 15px;
+        transition: transform 0.3s;
+      }
+      .gallery img:hover {
+        transform: scale(1.05);
+      }
+      .testimonials {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+      }
+      .testimonial {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        flex: 1;
+        min-width: 250px;
+        transition: transform 0.3s;
+      }
+      .testimonial:hover {
+        transform: translateY(-10px);
+      }
+      .testimonial p {
+        font-style: italic;
+        color: #555;
+        margin-bottom: 15px;
+      }
+      .testimonial h4 {
+        color: #ff5722;
+      }
+      form {
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      form input,
+      form textarea {
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        resize: none;
+      }
+      form button {
+        padding: 15px;
+        border: none;
+        background: #ff5722;
+        color: white;
+        font-size: 18px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      form button:hover {
+        background: #ff784e;
+      }
+      footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 30px 0;
+        margin-top: 50px;
+      }
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          background: rgba(0, 0, 0, 0.9);
+          position: absolute;
+          top: 60px;
+          right: 0;
+          width: 200px;
+          padding: 20px;
+          border-radius: 10px;
+        }
+        .nav-links.active {
+          display: flex;
+        }
+        .burger {
+          display: flex;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <div class="logo">Foodie’s Paradise</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#specials">Specials</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#chefs">Chefs</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="burger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home">
+      <div class="hero-content">
+        <h1>Welcome to Foodie’s Paradise</h1>
+        <p>Where every meal is a masterpiece</p>
+        <a href="#specials" class="btn">Discover Specials</a>
+      </div>
+    </header>
+
+    <!-- Specials Section -->
+    <section id="specials">
+      <h2>Our Specials</h2>
+      <div class="specials">
+        <div class="special">
+          <img
+            src="https://images.unsplash.com/photo-1643644598156-858b6d62405b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8VHJ1ZmZsZSUyMFBhc3RhfGVufDB8fDB8fHww"
+            alt="Special1"
+          />
+          <h3>Truffle Pasta</h3>
+          <p>Delicate pasta infused with rich truffle flavors.</p>
+        </div>
+        <div class="special">
+          <img
+            src="https://plus.unsplash.com/premium_photo-1723478417559-2349252a3dda?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8R3JpbGxlZCUyMFNhbG1vbnxlbnwwfHwwfHx8MA%3D%3D"
+            alt="Special2"
+          />
+          <h3>Grilled Salmon</h3>
+          <p>Perfectly grilled salmon with lemon butter sauce.</p>
+        </div>
+        <div class="special">
+          <img
+            src="https://media.istockphoto.com/id/467885320/photo/chocolate-fondant-lava-cake.webp?a=1&b=1&s=612x612&w=0&k=20&c=4LZpie_MiyLhUkU235uCHWxOt719mMatSXEduzetsFY="
+            alt="Special3"
+          />
+          <h3>Chocolate Lava Cake</h3>
+          <p>Molten chocolate cake with vanilla ice cream.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+      <h2>Our Menu</h2>
+      <div class="menu-items">
+        <!-- Starters -->
+        <div class="menu-item">
+          <img
+            src="https://media.istockphoto.com/id/481765835/photo/homemade-italian-bruschetta-appetizer.webp?a=1&b=1&s=612x612&w=0&k=20&c=mfFOa8s1WzDqmtqQh_v4vZpKjrY0MtbxrtTzRLFzflA="
+            alt="Bruschetta"
+          />
+          <h3>Bruschetta</h3>
+          <p>Grilled bread with fresh tomato, basil, and olive oil.</p>
+          <span>Rs. 120</span>
+        </div>
+        <div class="menu-item">
+          <img
+            src="https://media.istockphoto.com/id/1136429305/photo/stuffed-garlic-bread.webp?a=1&b=1&s=612x612&w=0&k=20&c=sdNd2n7m7MdESgc7ywWRuVS9StTXInlgaxSqLjnG6rg="
+            alt="Garlic Bread"
+          />
+          <h3>Garlic Bread</h3>
+          <p>Toasted bread with garlic butter and herbs.</p>
+          <span>Rs. 80</span>
+        </div>
+        <div class="menu-item">
+          <img
+            src="https://media.istockphoto.com/id/1323137584/photo/close-up-of-indian-homemade-fresh-and-healthy-tomato-soup-garnished-with-fresh-coriander.webp?a=1&b=1&s=612x612&w=0&k=20&c=w7K1mhf9RF0QOy3WGqU9gUIKVU5cd879YK8Oebfmxp8="
+            alt="Soup"
+          />
+          <h3>Tomato Soup</h3>
+          <p>Classic creamy tomato soup served hot.</p>
+          <span>Rs. 100</span>
+        </div>
+
+        <!-- Main Course -->
+        <div class="menu-item">
+          <img
+            src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&auto=format&fit=crop&q=60"
+            alt="Pizza"
+          />
+          <h3>Margherita Pizza</h3>
+          <p>Classic delight with 100% mozzarella cheese.</p>
+          <span>Rs. 300</span>
+        </div>
+        <div class="menu-item">
+          <img
+            src="https://media.istockphoto.com/id/1622449180/photo/beef-cheese-burger.webp?a=1&b=1&s=612x612&w=0&k=20&c=SljBPRghKQYxBTR1Bh0EpS7WJGG6cRrWJHDIcon93GE="
+            alt="Burger"
+          />
+          <h3>Cheeseburger</h3>
+          <p>Juicy beef patty with cheddar cheese.</p>
+          <span>Rs. 150</span>
+        </div>
+        <div class="menu-item">
+          <img
+            src="https://media.istockphoto.com/id/482964545/photo/arrabiata-pasta.webp?a=1&b=1&s=612x612&w=0&k=20&c=WgBDLDed6qro4H1gamjxl5hWALBdXm6T0UGSU3d6TRo="
+            alt="Pasta"
+          />
+          <h3>Spaghetti Pasta</h3>
+          <p>Italian spaghetti in rich tomato sauce.</p>
+          <span>Rs. 200</span>
+        </div>
+        <div class="menu-item">
+          <img
+            src="https://plus.unsplash.com/premium_photo-1701699258153-87eac25aab9a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8RnJlc2glMjBTYWxhZHxlbnwwfHwwfHx8MA%3D%3D"
+            alt="Salad"
+          />
+          <h3>Fresh Salad</h3>
+          <p>Greens with a zesty dressing.</p>
+          <span>Rs. 120</span>
+        </div>
+        <div class="menu-item">
+          <img
+            src="https://media.istockphoto.com/id/587207508/photo/sliced-grilled-steak-ribeye-with-herb-butter.webp?a=1&b=1&s=612x612&w=0&k=20&c=iBjNjYM1bRlYCYIThPVZtsWOPRljZpWLE59qjnDOU50="
+            alt="Grilled Steak"
+          />
+          <h3>Grilled Steak</h3>
+          <p>Perfectly cooked steak with herbs and garlic butter.</p>
+          <span>Rs. 400</span>
+        </div>
+
+        <!-- Desserts & Beverages -->
+        <div class="menu-item">
+          <img
+            src="https://media.istockphoto.com/id/2221780607/photo/decadent-waffle-with-strawberry-and-vanilla-ice-cream-whipped-cream-bananas-chocolate-sauce.webp?a=1&b=1&s=612x612&w=0&k=20&c=_-AS7G8Zdl_pTurSTcGJeBzuEl7fbKKQYE25M5LCR4o="
+            alt="Ice Cream"
+          />
+          <h3>Ice Cream</h3>
+          <p>Vanilla ice cream with chocolate syrup and nuts.</p>
+          <span>Rs. 80</span>
+        </div>
+        <div class="menu-item">
+          <img
+            src="https://plus.unsplash.com/premium_photo-1723867522131-af9733323bc1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8UmljaCUyMGNob2NvbGF0ZSUyMGNha2UlMjB0b3BwZWQlMjB3aXRoJTIwZnJlc2glMjBjcmVhbS58ZW58MHx8MHx8fDA%3D"
+            alt="Chocolate Cake"
+          />
+          <h3>Chocolate Cake</h3>
+          <p>Rich chocolate cake topped with fresh cream.</p>
+          <span>Rs. 150</span>
+        </div>
+        <div class="menu-item">
+          <img
+            src="https://media.istockphoto.com/id/1200136076/photo/shrimp-street-tacos.webp?a=1&b=1&s=612x612&w=0&k=20&c=PRcOz2N_Nog2Cd8rToGhEjMHKiOy_e8PUAX2fnGAIVA="
+            alt="Tacos"
+          />
+          <h3>Mexican Tacos</h3>
+          <p>Spicy tacos with fresh vegetables and salsa.</p>
+          <span>Rs. 180</span>
+        </div>
+        <div class="menu-item">
+          <img
+            src="https://plus.unsplash.com/premium_photo-1674407009848-4da7a12b6b25?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8SG90JTIwQ29mZmVlfGVufDB8fDB8fHww"
+            alt="Coffee"
+          />
+          <h3>Hot Coffee</h3>
+          <p>Freshly brewed coffee with a hint of aroma.</p>
+          <span>Rs. 60</span>
+        </div>
+        <div class="menu-item">
+          <img
+            src="https://media.istockphoto.com/id/1192893133/photo/smoky-apple-cider-margarita-fall-cocktail-with-cinnamon-rosemary-and-star-anise.webp?a=1&b=1&s=612x612&w=0&k=20&c=olL2n9uB7jmxJU5zGxw0r48J-cR-SW1J7UywRe3w0ws="
+            alt="Mocktail"
+          />
+          <h3>Fruit Mocktail</h3>
+          <p>Refreshing drink with mixed fruits and mint.</p>
+          <span>Rs. 100</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <h2>About Us</h2>
+      <p>
+        Foodie’s Paradise is dedicated to delivering an exquisite dining
+        experience. We source the finest ingredients, and our chefs create
+        culinary masterpieces with passion. Every dish is prepared with love to
+        delight your senses and leave a lasting impression.
+      </p>
+    </section>
+
+    <!-- Chef Section -->
+    <section id="chefs">
+      <h2>Meet Our Chefs</h2>
+      <div class="chefs">
+        <div class="chef">
+          <img
+            src="https://media.istockphoto.com/id/2163374097/photo/happy-indian-asian-young-male-chef-or-professional-cook-in-uniform-with-folded-hands-looking.jpg?s=612x612&w=0&k=20&c=NkxoObo1jgT7W6L43oR7PbR0QzdcAtVGvL6j8dKiULk="
+            alt="Chef1"
+          />
+          <h3>John Doe</h3>
+          <p>Head Chef</p>
+        </div>
+        <div class="chef">
+          <img
+            src="https://media.istockphoto.com/id/2163894521/photo/handsome-indian-asian-young-female-or-woman-chef-or-professional-cook-in-white-coat-and-hat.jpg?s=612x612&w=0&k=20&c=2_RWwjdag7hl-RCFyrGiNn9yZrNwj0XJ_4Odx51kiRE="
+            alt="Chef2"
+          />
+          <h3>Janny</h3>
+          <p>Pastry Chef</p>
+        </div>
+        <div class="chef">
+          <img
+            src="https://media.istockphoto.com/id/697037502/photo/studio-shot-of-young-indian-man-chef-against-gray-background.jpg?s=612x612&w=0&k=20&c=4HdP6iHKG6q9H69qTpGbGcB1n8eWLJVu4LO6wrG7UZ4="
+            alt="Chef3"
+          />
+          <h3>Mike Johnson</h3>
+          <p>Grill Master</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery">
+        <img
+          src="https://media.istockphoto.com/id/1169694902/photo/assorted-indian-non-vegetarian-food-recipe-served-in-a-group-includes-chicken-curry-mutton.webp?a=1&b=1&s=612x612&w=0&k=20&c=u_Txs8ayelMVBzmb142cbiE7UO4vDokq9hXUCUREPEc="
+          alt=""
+        />
+        <img
+          src="https://media.istockphoto.com/id/1307190527/photo/happy-waiter-serving-food-to-group-of-friends-in-a-pub.webp?a=1&b=1&s=612x612&w=0&k=20&c=dwhoTGrMdD7nfp548LoDuj0OI-jeliPqZGp0hwyUm8A="
+          alt=""
+        />
+        <img
+          src="https://images.unsplash.com/photo-1729001195966-6ca581448b4e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cmVzdHJhdW50fGVufDB8fDB8fHww"
+          alt=""
+        />
+        <img
+          src="https://plus.unsplash.com/premium_photo-1678897750441-b7fe348b14a5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjF8fHJlc3RyYXVudCUyMGZvb2R8ZW58MHx8MHx8fDA%3D"
+          alt=""
+        />
+        <img
+          src="https://plus.unsplash.com/premium_photo-1680626371929-6b10accf96d4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzd8fHJlc3RyYXVudCUyMGZvb2R8ZW58MHx8MHx8fDA%3D"
+          alt=""
+        />
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+      <h2>What Our Guests Say</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>
+            "Amazing experience! The food was divine and the ambiance perfect."
+          </p>
+          <h4>- Sarah L.</h4>
+        </div>
+        <div class="testimonial">
+          <p>"Best restaurant in town! Highly recommend the truffle pasta."</p>
+          <h4>- David M.</h4>
+        </div>
+        <div class="testimonial">
+          <p>
+            "A perfect place for family dinners and celebrations. Delicious
+            meals!"
+          </p>
+          <h4>- Emily R.</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Foodie’s Paradise. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+      // Mobile Navigation Toggle
+      const burger = document.querySelector(".burger");
+      const navLinks = document.querySelector(".nav-links");
+      burger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+
+      // Contact Form Alert
+      const form = document.getElementById("contactForm");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Thank you for your message! We will get back to you soon.");
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
